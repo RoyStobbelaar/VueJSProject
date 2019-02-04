@@ -1,7 +1,7 @@
 <template>
   <div class="container">
 
-      <canvas>
+      <canvas id="myCanvas" @click="someMethod" ref="canvas">
       </canvas>
 
   </div>
@@ -12,6 +12,29 @@ import { Prop, Vue, Component } from 'vue-property-decorator';
 
 @Component
 export default class GameComponent extends Vue {
+
+$refs:any = {
+    canvas: HTMLCanvasElement
+  }
+
+  canvas: any;
+  ctx: any;
+  x: number = 0;
+  y: number = 0;
+  height: number = 768;
+  width: number = 1280;
+
+  someMethod () {
+    console.log('click!');
+    this.canvas = this.$refs.canvas;
+    this.canvas.width = this.width;
+    this.canvas.height = this.height;
+
+    this.ctx = this.$refs.canvas.getContext("2d");
+    this.ctx.fillStyle = "#fff";
+    this.ctx.fillRect(this.x,this.y,this.width, this.height);
+  }
+
 }
 </script>
 
